@@ -343,29 +343,3 @@ class add_note_to_item:
             self.error_msg = self.dict['web_service_result']['errorList']['error'].get('errorMessage')
         else:
             self.successful = True
-            
-            
-class csu_holdings_by_mms_id:
-    def __init__(self, nz_mms_id, nz_api_key):
-        self.csu_holdings_by_mms_id = csu_holdings_by_mms_id
-        
-        url = f"https://api-na.hosted.exlibrisgroup.com/almaws/v1/bibs/{nz_mms_id}?view=full&expand=p_avail&apikey={nz_api_key}";
-        
-        self.r = requests.get(url)
-        self.xml = self.r.text
-        self.dict = xmltodict.parse(self.xml)
-        
-        if self.r.status_code != 200:
-            self.found = False
-            self.error_msg = self.dict['web_service_result']['errorList']['error'].get('errorMessage')
-        else:
-            self.found = True
-            
-        # campus codes (excluding CPSLO)
-        campus_codes = ['01CALS_UBA', '01CALS_UCI', '01CALS_CHI', '01CALS_UDH', '01CALS_UHL', '01CALS_UFR', '01CALS_FUL', '01CALS_HUL', '01CALS_ULB', '01CALS_ULA', '01CALS_MAL', '01CALS_UMB', '01CALS_MLM', '01CALS_UNO', '01CALS_PUP', '01CALS_USL', '01CALS_USB', '01CALS_SDL', '01CALS_SFR', '01CALS_SJO', '01CALS_USM', '01CALS_SOL', '01CALS_UST']
-        
-        # count number of holdings
-        self.total = 0
-        for code in campus_codes:
-            if code in self.xml:
-                self.total += 1
