@@ -1,0 +1,11 @@
+certifi==2020.4.5.1
+cffi==1.14.0
+chardet==3.0.4
+gevent==20.4.0
+greenlet==0.4.15
+grequests==0.6.0
+idna==2.9
+pycparser==2.20
+requests==2.23.0
+urllib3==1.25.9
+xmltodict==0.12.0

@@ -1,0 +1,7 @@
+__dump__
+__pycache__
+.venv
+.vscode
+dist
+bbg_docs.docx
+bbg.spec
