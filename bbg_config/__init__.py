@@ -21,14 +21,23 @@ class load_configuration:
             config.read(config_file)
             
             self.version                    = config['misc'].get('version')
-            self.apikey                     = config['misc'].get('apikey')
+            self.key                        = config['misc'].get('apikey')
+
+            # set apikey
+            # -will first search for a matching environmental variable key. 
+            # -if not found will set apikey as written in config.ini entry.
+            try:
+                self.apikey = os.environ[self.key]
+            except KeyError:
+                self.apikey = self.key
             
             self.serial_check               = config['checks'].get('serial_check')
             self.other_items_check          = config['checks'].get('other_items_check')
             self.other_holdings_check       = config['checks'].get('other_holdings_check')
             self.attached_orders_check      = config['checks'].get('attached_orders_check')
             self.bib_search                 = config['checks'].get('bib_search')
-            self.bib_search_phrase          = config['checks'].get('bib_search_phrase')
+            bib_search_phrases              = config['checks'].get('bib_search_phrases')
+            self.bib_search_phrases         = bib_search_phrases.split('|')
 
             self.add_item_note              = config['add_statistics_note'].get('add_item_note')
             self.item_note_field            = config['add_statistics_note'].get('item_note_field')
@@ -68,8 +77,8 @@ class load_configuration:
             
             # check bib search params
             if self.bib_search == 'active':
-                if self.bib_search_phrase == '':
-                    self.errors.append("[bib_search_phrase] is blank.")
+                if bib_search_phrases == '':
+                    self.errors.append("[bib_search_phrases] is blank.")
             
             # check item note params
             if self.add_item_note == 'active':

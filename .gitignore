@@ -5,3 +5,4 @@ __pycache__
 dist
 bbg_docs.docx
 bbg.spec
+build

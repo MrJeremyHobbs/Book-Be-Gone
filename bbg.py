@@ -78,11 +78,13 @@ def main(*args):
             
     # bib search
     if config.bib_search  == 'active':
-        bib_search = bib.search(config.bib_search_phrase)
-        if bib_search == 'found':
-            messagebox.showerror('Exception', f'EXCEPTION - FOUND KEYWORDS IN BIB ("{config.bib_search_phrase}")')
-            gui.update_status_failure(item.title_short, f'EXCEPTION - FOUND KEYWORDS IN BIB ("{config.bib_search_phrase}")')
-            return
+        #print(bib_searches)
+        for search in config.bib_search_phrases:
+            bib_search = bib.search(search)
+            if bib_search == 'found':
+                messagebox.showerror('Exception', f'EXCEPTION - FOUND KEYWORDS IN BIB ("{search}")')
+                gui.update_status_failure(item.title_short, f'EXCEPTION - FOUND KEYWORDS IN BIB ("{search}")')
+                return
     
     # add note to item record
     if config.add_item_note == 'active':
@@ -198,7 +200,7 @@ class gui:
     
         
 # toplevel ####################################################################
-version = '3.1'    
+version = '3.2'
     
 # load gui
 root = Tk()
@@ -206,12 +208,13 @@ gui = gui(root)
 
 # load and check configurations
 config = config.load_configuration('config.ini')
+
 if config.errors:
     config_errors = "\n\n".join(config.errors)
     messagebox.showerror("Errors Found!", 
                         f"ERRORS FOUND IN CONFIG.INI:\n" \
                         "----------------------------------------\n\n" \
-                        "{config_errors}")
+                        f"{config_errors}")
     sys.exit()
 
 root.mainloop()
