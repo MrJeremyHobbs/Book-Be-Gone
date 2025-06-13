@@ -3,7 +3,7 @@ A Program for Withdrawing Books in Alma
 
 ![alt text](https://github.com/MrJeremyHobbs/Book-Be-Gone/blob/master/screenshot.png)
 
-## NOTE
+## ***NOTE***
 Book-Be-Gone is released as-is and is no longer being maintained. The code is available, though, and can be modified as needed to meet local needs.
 
 Thanks!
